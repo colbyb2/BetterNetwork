@@ -1,3 +1,3 @@
 # NetworkLibrary
 
-A description of this package.
+Gives a better networking object for SwiftUI.
