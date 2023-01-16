@@ -13,7 +13,7 @@ public class Network {
     var baseURL: String
     
     ///Creates a Network object using baseURL: API url without any routes
-    init(baseURL: String) {
+    public init(baseURL: String) {
         self.baseURL = baseURL
     }
     
