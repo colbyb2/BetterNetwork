@@ -9,7 +9,7 @@ import Foundation
 
 
 @available(macOS 10.15.0, *)
-class Network {
+public class Network {
     var baseURL: String
     
     ///Creates a Network object using baseURL: API url without any routes
@@ -140,7 +140,7 @@ class Network {
     }
 }
 
-struct URLParam {
+public struct URLParam {
     let name:String
     let value:Any
 }
