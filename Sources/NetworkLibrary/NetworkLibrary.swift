@@ -25,7 +25,7 @@ public class Network {
      - token: (Optional) Authentication Token
      - completion: Closure triggered on completion, passes decoded JSON object into result
      */
-    func Get<T: Codable>(as: T.Type, urlExtension: String, token:String = "",  completion: @escaping (_ data: T?) -> Void) async {
+    public func Get<T: Codable>(as: T.Type, urlExtension: String, token:String = "",  completion: @escaping (_ data: T?) -> Void) async {
         let url = URL(string:baseURL + urlExtension)!;
         
         var request = URLRequest(url: url)
@@ -49,7 +49,7 @@ public class Network {
      - token: (Optional) Authentication Token
      - completion: Closure triggered on completion, passes a boolean completion status
      */
-    func Post<T: Codable>(urlExtension: String, bodyPayload: T, token: String, completion: @escaping (_ status:Bool) -> Void) async {
+    public func Post<T: Codable>(urlExtension: String, bodyPayload: T, token: String, completion: @escaping (_ status:Bool) -> Void) async {
         let url = URL(string:baseURL + urlExtension)!
         var request = URLRequest(url: url)
         
@@ -77,7 +77,7 @@ public class Network {
      - token: (Optional) Authentication Token
      - completion: Closure triggered on completion, passes a boolean completion status
      */
-    func Delete(urlExtension: String, token: String, params: [URLParam], completion: @escaping (_ status:Bool) -> Void) async {
+    public func Delete(urlExtension: String, token: String, params: [URLParam], completion: @escaping (_ status:Bool) -> Void) async {
         let urlString = baseURL + urlExtension + generateQueryExtension(params)
 
         let url = URL(string: urlString)!
@@ -143,5 +143,10 @@ public class Network {
 public struct URLParam {
     let name:String
     let value:Any
+    
+    public init(name: String, value: Any) {
+        self.name = name
+        self.value = value
+    }
 }
 
