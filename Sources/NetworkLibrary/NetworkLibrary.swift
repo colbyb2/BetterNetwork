@@ -23,10 +23,13 @@ public class Network {
      - as: Type to read JSON as, must conform to Codable
      - urlExtension: API Route extension
      - token: (Optional) Authentication Token
+     - params: (Optional) Query Paramters
      - completion: Closure triggered on completion, passes decoded JSON object into result
      */
-    public func Get<T: Codable>(as: T.Type, urlExtension: String, token:String = "",  completion: @escaping (_ data: T?) -> Void) async {
-        let url = URL(string:baseURL + urlExtension)!;
+    public func Get<T: Codable>(as: T.Type, urlExtension: String, token:String = "", params: [URLParam] = [], completion: @escaping (_ data: T?) -> Void) async {
+        let urlString = baseURL + urlExtension + generateQueryExtension(params)
+        
+        let url = URL(string: urlString)!;
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -47,10 +50,13 @@ public class Network {
      - urlExtension: API Route extension
      - bodyPayload: Codable Object that will be sent as JSON to API
      - token: (Optional) Authentication Token
+     - params: (Optional) Query Paramters
      - completion: Closure triggered on completion, passes a boolean completion status
      */
-    public func Post<T: Codable>(urlExtension: String, bodyPayload: T, token: String, completion: @escaping (_ status:Bool) -> Void) async {
-        let url = URL(string:baseURL + urlExtension)!
+    public func Post<T: Codable>(urlExtension: String, bodyPayload: T, token: String, params: [URLParam] = [], completion: @escaping (_ status:Bool) -> Void) async {
+        let urlString = baseURL + urlExtension + generateQueryExtension(params)
+        
+        let url = URL(string: urlString)!
         var request = URLRequest(url: url)
         
         let bodyData = parseTo(data: bodyPayload)
@@ -75,6 +81,7 @@ public class Network {
     - Parameters:
      - urlExtension: API Route extension
      - token: (Optional) Authentication Token
+     - params: (Optional) Query Paramters
      - completion: Closure triggered on completion, passes a boolean completion status
      */
     public func Delete(urlExtension: String, token: String, params: [URLParam], completion: @escaping (_ status:Bool) -> Void) async {

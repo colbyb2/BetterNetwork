@@ -79,13 +79,14 @@ class ViewController {
 ### Get Request:
 The Network.Get function is used to conduct an HTTP GET Request.
 
-The Get function takes 3 parameters and one optional parameter.
+The Get function takes 3 parameters and two optional parameters.
 
 1. as: This will be your custom object that represents the data structure returned from the API. It must conform to the native Codable protocol.
 2. urlExtension: This string will be appended onto the baseURL to create the final API route.
     Example: baseUrl="https://fakeapi.io/" and extension="users/[UID]" gives us "https://fakeapi.io/users/[UID]"
 3. token: (Optional) This param contains an AuthToken to be passed. If no authentication is required, you can ignore this. **Note: Due to iOS configurations, authTokens cannot be passed directly through the Authentication header. Because of this, authTokens are passed in a custom header called "token". If you are an admin of the server, be sure to retrieve the token through that header.**
-4. completion: This function will be called on completion of the request. It will be passed the decoded data retrieved by the request.
+4. params: (Optional) These are optional query parameters.
+5. completion: This function will be called on completion of the request. It will be passed the decoded data retrieved by the request.
 
 Example:
 
@@ -127,10 +128,11 @@ class ViewController {
 Notice that the completion parameter is written as a closure and passed the decoded response.
 
 ### POST Request
-The Post function also takes 3 params and an optional token param.
+The Post function also takes 3 params and an optional token param as well as an optional list of query parameters.
 1. urlExtension: Same as GET
 2. bodyPayload: This will be an instance of the data that you want to send to the API. It has to be conform to Codable.
 3. token: (Optional) Same as GET
+4. params: (Optional) Query Parameters
 4. completion: Same as GET but passes a boolean status instead of response data.
 
 Example:
@@ -179,7 +181,6 @@ The full generated URL would be "baseUrl/data?id=[ID_VALUE]". Your API/Server ca
 
 ### URLParam
 The URLParam object is used to easily pass query parameters to your API Call.
-**Note: Currently, URLParams are only supported on Delete request (due to lack of body data), however, I am planning on adding support to all requests in the future.**
 
 URLParam can take any key value pair and translate it into a query string to be appended to your URL.
 Examples:
