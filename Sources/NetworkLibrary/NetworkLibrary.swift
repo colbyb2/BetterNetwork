@@ -26,9 +26,11 @@ public class Network {
      - params: (Optional) Query Paramters
      - completion: Closure triggered on completion, passes decoded JSON object into result
      */
-    public func Get<T: Codable>(as: T.Type, urlExtension: String, token:String = "", params: [URLParam] = [], completion: @escaping (_ data: T?) -> Void) async {
+    public func Get<T: Codable>(as: T.Type, urlExtension: String, token:String = "", params: [URLParam] = [], debug:Bool = false, completion: @escaping (_ data: T?) -> Void) async {
         let urlString = baseURL + urlExtension + generateQueryExtension(params)
-        
+        if (debug){
+            print(urlString)
+        }
         let url = URL(string: urlString)!;
         
         var request = URLRequest(url: url)
